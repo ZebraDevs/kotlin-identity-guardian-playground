@@ -1,8 +1,11 @@
 package com.zebra.nilac.igplayground
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.symbol.emdk.EMDKResults
@@ -44,6 +47,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         initEMDKManager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_authenticate -> {
+                startActivity(Intent(this@MainActivity, UserAuthenticationActivity::class.java))
+                return true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initEMDKManager() {

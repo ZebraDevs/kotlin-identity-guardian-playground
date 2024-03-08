@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="authenticationSchemes">
+        <item>authenticationScheme1</item>
+        <item>authenticationScheme2</item>
+        <item>authenticationScheme3</item>
+        <item>authenticationScheme4</item>
+    </string-array>
+
+    <string-array name="flags">
+        <item>blocking</item>
+        <item>unblocking</item>
+    </string-array>
+
+</resources>
