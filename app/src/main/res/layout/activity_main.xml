@@ -49,10 +49,18 @@
             android:padding="8dp">
 
             <Button
-                android:id="@+id/current_session_buton"
-                android:layout_width="wrap_content"
+                android:id="@+id/current_session_btn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Retrieve Current Session" />
+
+            <Button
+                android:id="@+id/previous_session_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Retrieve Previous Session" />
 
         </LinearLayout>
 
