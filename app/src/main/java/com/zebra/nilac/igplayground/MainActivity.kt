@@ -100,7 +100,9 @@ class MainActivity : AppCompatActivity() {
                 userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
             }
         }
-        binding.userSession.text = userSession
+        runOnUiThread {
+            binding.userSession.text = userSession
+        }
     }
 
     private fun getPreviousUserSession() {
@@ -123,7 +125,9 @@ class MainActivity : AppCompatActivity() {
                 userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
             }
         }
-        binding.userSession.text = userSession
+        runOnUiThread {
+            binding.userSession.text = userSession
+        }
     }
 
     private fun acquirePermissionForUserSession() {
