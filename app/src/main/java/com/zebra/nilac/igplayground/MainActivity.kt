@@ -104,9 +104,10 @@ class MainActivity : BaseActivity() {
                 return
             }
 
-            it.moveToNext()
-            for (i in 0 until it.columnCount) {
-                userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+            while (it.moveToNext()) {
+                for (i in 0 until it.columnCount) {
+                    userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+                }
             }
         }
         runOnUiThread {
@@ -129,9 +130,10 @@ class MainActivity : BaseActivity() {
                 return
             }
 
-            it.moveToNext()
-            for (i in 0 until it.columnCount) {
-                userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+            while (it.moveToNext()) {
+                for (i in 0 until it.columnCount) {
+                    userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+                }
             }
         }
         runOnUiThread {
