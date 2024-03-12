@@ -180,7 +180,7 @@ class MainActivity : BaseActivity() {
                 }
 
                 override fun onProfileLoaded() {
-                    getCurrentUserSession()
+                    getPreviousUserSession()
                 }
             })
     }
