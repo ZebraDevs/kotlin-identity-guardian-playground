@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.symbol.emdk.EMDKResults
 import com.zebra.nilac.emdkloader.EMDKLoader
 import com.zebra.nilac.emdkloader.ProfileLoader
@@ -16,7 +15,7 @@ import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.igplayground.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -61,6 +60,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
+            R.id.action_logout -> {
+                acquirePermissionForLogoutRequest()
+                return true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -84,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         var userSession = ""
 
         contentResolver.query(
-            Uri.parse(CURRENT_SESSION_URI),
+            Uri.parse(AppConstants.CURRENT_SESSION_URI),
             null,
             null,
             null
@@ -109,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         var userSession = ""
 
         contentResolver.query(
-            Uri.parse(PREVIOUS_SESSION_URI),
+            Uri.parse(AppConstants.PREVIOUS_SESSION_URI),
             null,
             null,
             null
@@ -128,6 +132,17 @@ class MainActivity : AppCompatActivity() {
         runOnUiThread {
             binding.userSession.text = userSession
         }
+    }
+
+    private fun sendLogoutRequest() {
+        val response = contentResolver.call(
+            Uri.parse(AppConstants.BASE_URI),
+            AppConstants.LOCKSCREEN_ACTION,
+            AppConstants.LOGOUT_METHOD,
+            null
+        );
+
+        Log.w(TAG, "LOCK STATE: ${response?.getString("RESULT")}")
     }
 
     private fun acquirePermissionForUserSession() {
@@ -170,12 +185,27 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    private fun acquirePermissionForLogoutRequest() {
+        Log.i(TAG, "Acquiring permission to logout a user")
+        ProfileLoader().processProfile(
+            "IGLogout",
+            null,
+            object : ProfileLoaderResultCallback {
+                override fun onProfileLoadFailed(errorObject: EMDKResults) {
+                    //Nothing to see here..
+                }
+
+                override fun onProfileLoadFailed(message: String) {
+                    Log.e(TAG, "Failed to process profile")
+                }
+
+                override fun onProfileLoaded() {
+                    sendLogoutRequest()
+                }
+            })
+    }
+
     companion object {
         private const val TAG = "MainActivity"
-
-        private const val CURRENT_SESSION_URI =
-            "content://com.zebra.mdna.els.provider/currentsession"
-        private const val PREVIOUS_SESSION_URI =
-            "content://com.zebra.mdna.els.provider/previoussession"
     }
 }

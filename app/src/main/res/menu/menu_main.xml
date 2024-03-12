@@ -8,4 +8,10 @@
         android:orderInCategory="100"
         android:title="Authenticate New User"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never" />
 </menu>

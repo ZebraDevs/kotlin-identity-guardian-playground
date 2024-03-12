@@ -83,14 +83,14 @@ class UserAuthenticationActivity : BaseActivity() {
         }
 
         val response = contentResolver.call(
-            Uri.parse(BASE_URI),
-            "lockscreenaction",
-            "startauthentication",
+            Uri.parse(AppConstants.BASE_URI),
+            AppConstants.LOCKSCREEN_ACTION,
+            AppConstants.START_AUTHENTICATION_METHOD,
             bundle
         );
 
         contentResolver.registerContentObserver(
-            Uri.parse(STATUS_AUTHENTICATION_URI),
+            Uri.parse(AppConstants.STATUS_AUTHENTICATION_URI),
             false,
             authStatusContentObserver
         )
@@ -123,7 +123,7 @@ class UserAuthenticationActivity : BaseActivity() {
         var response = ""
 
         contentResolver.query(
-            Uri.parse(STATUS_AUTHENTICATION_URI),
+            Uri.parse(AppConstants.STATUS_AUTHENTICATION_URI),
             null,
             null,
             null
@@ -189,10 +189,5 @@ class UserAuthenticationActivity : BaseActivity() {
 
     companion object {
         const val TAG = "UserAuthenticateActivity"
-
-        const val BASE_URI =
-            "content://com.zebra.mdna.els.provider/"
-        const val STATUS_AUTHENTICATION_URI =
-            "content://com.zebra.mdna.els.provider/lockscreenaction/authenticationstatus"
     }
 }
