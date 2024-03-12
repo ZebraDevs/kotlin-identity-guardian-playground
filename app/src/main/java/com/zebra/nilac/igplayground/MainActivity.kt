@@ -65,6 +65,11 @@ class MainActivity : BaseActivity() {
                 return true
             }
 
+            R.id.action_start_service -> {
+                acquirePermissionForLockscreenStatusState()
+                return true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -201,6 +206,26 @@ class MainActivity : BaseActivity() {
 
                 override fun onProfileLoaded() {
                     sendLogoutRequest()
+                }
+            })
+    }
+
+    private fun acquirePermissionForLockscreenStatusState() {
+        Log.i(TAG, "Acquiring permission for lockscreen status state")
+        ProfileLoader().processProfile(
+            "IGLockscreenStatus",
+            null,
+            object : ProfileLoaderResultCallback {
+                override fun onProfileLoadFailed(errorObject: EMDKResults) {
+                    //Nothing to see here..
+                }
+
+                override fun onProfileLoadFailed(message: String) {
+                    Log.e(TAG, "Failed to process profile")
+                }
+
+                override fun onProfileLoaded() {
+                    startForegroundService(Intent(this@MainActivity, StatusService::class.java))
                 }
             })
     }

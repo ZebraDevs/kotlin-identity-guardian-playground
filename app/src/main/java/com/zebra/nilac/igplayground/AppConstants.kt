@@ -11,11 +11,18 @@ object AppConstants {
         "content://com.zebra.mdna.els.provider/previoussession"
     const val STATUS_AUTHENTICATION_URI =
         "content://com.zebra.mdna.els.provider/lockscreenaction/authenticationstatus"
+    const val STATUS_URI =
+        "content://com.zebra.mdna.els.provider/lockscreenstatus/state"
 
     const val LOCKSCREEN_ACTION =
         "lockscreenaction"
+    const val LOCKSCREEN_STATUS_ACTION =
+        "lockscreenstatus"
+
     const val START_AUTHENTICATION_METHOD =
         "startauthentication"
     const val LOGOUT_METHOD =
         "logout"
+    const val LOCKSCREEN_STATUS_STATE_METHOD =
+        "state"
 }

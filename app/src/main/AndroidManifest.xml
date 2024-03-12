@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.zebra.mdna.els.permission.PROVIDER" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <queries>
         <package android:name="com.zebra.mdna.els" />
     </queries>
@@ -31,6 +34,11 @@
 
         <activity
             android:name=".UserAuthenticationActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".StatusService"
+            android:enabled="true"
             android:exported="false" />
 
     </application>
