@@ -6,22 +6,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.symbol.emdk.EMDKResults
 import com.zebra.nilac.emdkloader.EMDKLoader
 import com.zebra.nilac.emdkloader.ProfileLoader
 import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.igplayground.databinding.UserAuthenticationBinding
 
-
-class UserAuthenticationActivity : AppCompatActivity() {
+class UserAuthenticationActivity : BaseActivity() {
 
     private lateinit var binding: UserAuthenticationBinding
-
-    private var selectedScheme = ""
-    private var selectedFlag = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,17 +30,24 @@ class UserAuthenticationActivity : AppCompatActivity() {
         fillUi()
 
         binding.sendAuthRequestBtn.setOnClickListener {
-            if (!EMDKLoader.getInstance().isManagerInit()) {
-                Toast.makeText(this, "EMDK Manager is not yet initialized!", Toast.LENGTH_LONG)
-                    .show()
-                return@setOnClickListener
-            }
+            showLoadingScreen()
             sendAuthenticationRequest()
         }
+
+        fillUi()
+        showLoadingScreen()
+
+        if (!EMDKLoader.getInstance().isManagerInit()) {
+            Toast.makeText(this, "EMDK Manager is not yet initialized!", Toast.LENGTH_LONG)
+                .show()
+            return
+        }
+        acquirePermissionForAuthRequest()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
         contentResolver.unregisterContentObserver(authStatusContentObserver)
     }
 
@@ -66,6 +69,13 @@ class UserAuthenticationActivity : AppCompatActivity() {
         binding.flagsInput.setAdapter(flagsAdapter)
     }
 
+    private val authStatusContentObserver = object : ContentObserver(Handler(Looper.myLooper()!!)) {
+        override fun onChange(selfChange: Boolean, uri: Uri?) {
+            super.onChange(selfChange, uri)
+            getAuthRequestStatus()
+        }
+    }
+
     private fun sendAuthenticationRequest() {
         val bundle = Bundle().apply {
             putString("user_verification", binding.authenticationSchemeInput.text.toString())
@@ -79,25 +89,37 @@ class UserAuthenticationActivity : AppCompatActivity() {
             bundle
         );
 
-        if (response == null || !response.containsKey("RESULT") || response.getString("RESULT") == "Caller is unauthorized") {
-            Log.e(TAG, "App is not having permission for this API")
-            acquirePermissionForAuthRequest()
-            return
-        }
-
-        Log.i(TAG, "${response.getString("RESULT")}")
-
         contentResolver.registerContentObserver(
             Uri.parse(STATUS_AUTHENTICATION_URI),
             false,
             authStatusContentObserver
         )
 
-//        Toast.makeText(this, "Authentication request successfully sent!", Toast.LENGTH_LONG).show()
-//        finishAffinity()
+        if (response == null || !response.containsKey("RESULT") || response.getString("RESULT") == "Caller is unauthorized") {
+            Log.e(TAG, "App is not having permission for this API")
+            dismissLoadingScreen()
+            acquirePermissionForAuthRequest()
+            return
+        } else if (response.containsKey("RESULT") && response.getString("RESULT") == "SUCCESS") {
+            dismissLoadingScreen()
+            Toast.makeText(
+                this,
+                "Session already in use, please log out first before creating a new request",
+                Toast.LENGTH_LONG
+            ).show()
+        } else if (response.containsKey("RESULT") && response.getString("RESULT") == "Error:Cannot initiate as lock type is Device lock") {
+            dismissLoadingScreen()
+            Toast.makeText(
+                this,
+                "Unable to launch a new authentication request, please log out first",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Log.w(TAG, "${response.getString("RESULT")}")
+        }
     }
 
-    private fun registerForAuthRequestStatus() {
+    private fun getAuthRequestStatus() {
         var response = ""
 
         contentResolver.query(
@@ -107,24 +129,20 @@ class UserAuthenticationActivity : AppCompatActivity() {
             null
         ).use {
             if (it == null || it.columnCount == 0) {
-                Log.e(TAG, "App is not having permission for this API")
-                acquirePermissionForAuthStatus()
+                Log.w(TAG, "Detected a new event but not triggered by our app, ignoring...")
                 return
             }
 
-            it.moveToNext()
-            for (i in 0 until it.columnCount) {
-                response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+            while (it.moveToNext()) {
+                for (i in 0 until it.columnCount) {
+                    response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+                }
             }
+            dismissLoadingScreen()
+            binding.authRequestContainer.visibility = View.GONE
+            binding.userSession.text = response
         }
         Log.i(TAG, response)
-    }
-
-    private val authStatusContentObserver = object : ContentObserver(Handler(Looper.myLooper()!!)) {
-        override fun onChange(selfChange: Boolean, uri: Uri?) {
-            super.onChange(selfChange, uri)
-            registerForAuthRequestStatus()
-        }
     }
 
     private fun acquirePermissionForAuthRequest() {
@@ -139,10 +157,11 @@ class UserAuthenticationActivity : AppCompatActivity() {
 
                 override fun onProfileLoadFailed(message: String) {
                     Log.e(TAG, "Failed to process profile")
+                    dismissLoadingScreen()
                 }
 
                 override fun onProfileLoaded() {
-                    sendAuthenticationRequest()
+                    acquirePermissionForAuthStatus()
                 }
             })
     }
@@ -159,10 +178,11 @@ class UserAuthenticationActivity : AppCompatActivity() {
 
                 override fun onProfileLoadFailed(message: String) {
                     Log.e(TAG, "Failed to process profile")
+                    dismissLoadingScreen()
                 }
 
                 override fun onProfileLoaded() {
-                    sendAuthenticationRequest()
+                    dismissLoadingScreen()
                 }
             })
     }
@@ -170,11 +190,9 @@ class UserAuthenticationActivity : AppCompatActivity() {
     companion object {
         const val TAG = "UserAuthenticateActivity"
 
-        const val START_AUTHENTICATION_URI =
-            "content://com.zebra.mdna.els.provider/lockscreenaction/startauthentication"
-        const val STATUS_AUTHENTICATION_URI =
-            "content://com.zebra.mdna.els.provider/lockscreenaction/authenticationstatus"
         const val BASE_URI =
             "content://com.zebra.mdna.els.provider/"
+        const val STATUS_AUTHENTICATION_URI =
+            "content://com.zebra.mdna.els.provider/lockscreenaction/authenticationstatus"
     }
 }
