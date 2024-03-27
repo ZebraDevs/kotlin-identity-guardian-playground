@@ -45,7 +45,7 @@ class StatusService : Service() {
         }
 
         contentResolver.registerContentObserver(
-            Uri.parse(AppConstants.STATUS_AUTHENTICATION_URI),
+            Uri.parse(AppConstants.STATUS_URI),
             false,
             statusContentObserver
         )

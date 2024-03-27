@@ -138,11 +138,12 @@ class UserAuthenticationActivity : BaseActivity() {
                     response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
                 }
             }
-            dismissLoadingScreen()
-            binding.authRequestContainer.visibility = View.GONE
-            binding.userSession.text = response
         }
         Log.i(TAG, response)
+
+        dismissLoadingScreen()
+        binding.authRequestContainer.visibility = View.GONE
+        binding.userSession.text = response
     }
 
     private fun acquirePermissionForAuthRequest() {
