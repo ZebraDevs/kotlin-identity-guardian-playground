@@ -3,24 +3,53 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+
 android {
     namespace 'com.zebra.nilac.igplayground'
     compileSdk 34
+
+    // ---- Read API Keys from properties file -----
+    // Feel free to remove this block when compiling the app for the first time
+    def keysPropFile = file('keys.properties')
+    Properties keysProps = new Properties()
+
+    keysProps.load(new FileInputStream(keysPropFile))
+
+    def pKeyAlias = keysProps['KEY_ALIAS']
+    def pKeyPassword = keysProps['KEY_PASSWORD']
+    def pKeyFile = keysProps['KEY_FILE_LOCATION']
+    def pKeyFilePassword = keysProps['KEY_FILE_PASSWORD']
+    // -------------------------------------------------------------
+
+    signingConfigs {
+        official {
+            keyAlias pKeyAlias
+            keyPassword pKeyPassword
+            storeFile file('../../' + pKeyFile)
+            storePassword pKeyFilePassword
+        }
+    }
 
     defaultConfig {
         applicationId "com.zebra.nilac.igplayground"
         minSdk 30
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.official
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.official
         }
     }
 
@@ -37,7 +66,6 @@ android {
         viewBinding true
     }
 }
-
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
