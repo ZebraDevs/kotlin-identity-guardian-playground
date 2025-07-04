@@ -44,8 +44,16 @@ class MainActivity : BaseActivity() {
             }
             getPreviousUserSession()
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         initEMDKManager()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EMDKLoader.getInstance().release()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,6 +86,11 @@ class MainActivity : BaseActivity() {
         //Initialising EMDK First...
         Log.i(TAG, "Initialising EMDK Manager")
 
+        if (EMDKLoader.getInstance().isManagerInit()) {
+            getCurrentUserSession()
+            return
+        }
+
         EMDKLoader.getInstance().initEMDKManager(this, object : EMDKManagerInitCallBack {
             override fun onFailed(message: String) {
                 Log.e(TAG, "Failed to initialise EMDK Manager")
@@ -85,6 +98,9 @@ class MainActivity : BaseActivity() {
 
             override fun onSuccess() {
                 Log.i(TAG, "EMDK Manager was successfully initialised")
+
+                //Automatically get the current user (if available)
+                getCurrentUserSession()
             }
         })
     }
