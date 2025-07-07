@@ -91,13 +91,21 @@ class StatusService : Service() {
                 val state = jsonObject.getString("state")
                 val timestamp = jsonObject.getString("lastchangedtimestamp")
 
-                sendNewNotification(
-                    "New Event", """
-                    Type: $state
-                    TimeStamp: $timestamp
+                if (state.equals("SHOWN", ignoreCase = true)) {
+                    sendNewNotification(
+                        "New Event", """
+                    User has logged out at:
+                    $timestamp
                 """.trimIndent()
-                )
-
+                    )
+                } else {
+                    sendNewNotification(
+                        "New Event", """
+                    New user has logged in at:
+                    $timestamp
+                """.trimIndent()
+                    )
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -136,10 +144,10 @@ class StatusService : Service() {
 
         // Return Build Notification object
         return notificationBuilder
-            .setContentTitle("Service is active")
+            .setContentTitle("Authentication Status Service")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setCategory(Notification.CATEGORY_SERVICE)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
             .addAction(R.drawable.ic_generic_close, "STOP", stopServicePendingIntent)
             .setOngoing(true)
             .build()

@@ -33,7 +33,7 @@ android {
     defaultConfig {
         applicationId "com.zebra.nilac.igplayground"
         minSdk 30
-        targetSdk 34
+        targetSdk 33
         versionCode 11
         versionName "1.1"
 
