@@ -1,96 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- DON'T FORGET TO CHANGE THE CALLER SIGNATURE AND USE YOURS AS BEING SHOWN IN THE BLOG POST -->
 <wap-provisioningdoc>
-    <characteristic type="ProfileInfo">
-        <parm name="created_wizard_version" value="13.0.1" />
-    </characteristic>
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGCurrentSession" />
-        <parm name="ModifiedDate" value="2024-07-10 18:36:07" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/currentsession" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGPreviousSession" />
-        <parm name="ModifiedDate" value="2024-07-10 18:34:37" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/previoussession" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGStartAuth" />
-        <parm name="ModifiedDate" value="2024-07-10 18:36:40" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/lockscreenaction/startauthentication" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGAuthStatus" />
-        <parm name="ModifiedDate" value="2024-07-10 18:36:54" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/lockscreenaction/authenticationstatus" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGLogout" />
-        <parm name="ModifiedDate" value="2024-07-10 18:35:01" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/lockscreenaction/logout" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGLockscreenStatus" />
-        <parm name="ModifiedDate" value="2024-07-10 18:37:05" />
-        <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/lockscreenstatus/state" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.igplayground" />
-            <parm name="CallerSignature"
-                value="MIIDgTCCAmmgAwIBAgIEOSNs5TANBgkqhkiG9w0BAQsFADBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwHhcNMjIwNTAzMTQxMDU1WhcNNDcwNDI3MTQxMDU1WjBxMQ4wDAYDVQQGEwUyMDAxOTELMAkGA1UECBMCTUkxDjAMBgNVBAcTBU1pbGFuMRswGQYDVQQKExJaZWJyYSBUZWNobm9sb2dpZXMxDTALBgNVBAsTBEVNRUExFjAUBgNVBAMTDURhbmllbCBOZWFtdHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPfh07TxbAH+nbLyXOXuAg0DE/jshwMXEguYQ0EoYq9haxp0lPQFAyCyINstU0FH70J/7YGc/UT0IpsetwbdUXzfW4p0pcgFh7H4wE/nCpLGwqsNcPMcK6MJGQXVAM6LNAFbnKadO9bZTcMSnQWeoe+IeSsVsCl1APkf2pT6MGnt73nc2+byn4HrfUQk5Hi7Ex+O+apuifuoWpIuG8VdIx1BqBomGbnS+C/jTbccK7bxIb9/ma4lKdRFzQumbpWfBxbxRpbHgFd+fGAdgiAE5MYoFfzu14mcy7Rc9koqKinBlg17wT0MpXkoo4LPpqff8yX23UqB0n+PpbZ5W7fYW1AgMBAAGjITAfMB0GA1UdDgQWBBRdjwZ8E7zvFe4dGcD3U/NkmvE0HzANBgkqhkiG9w0BAQsFAAOCAQEAo+s+xUYlPBoatbgLcdk8oZNcmHMPF8gE++rwHANWtjrGGtL+ATiiKzpwUaDRrq4KVf1F9EK9A5AYcB2YRzAgnEWd4kb/7yey+PgM6k3Uqr51qfcsvygObz2rQSYfXBDLTbUf2ZtBxbAuisLoaQCY+4Vd4d9SvxWSeyMTJkZlCNtyvPKk1H1upWnPF5rrCWyq7R9zrLS78LA/rzeDUTnrehHwO+dGirEIlnVz1XN+QQ5R4m7UiZGzkgtrCy0lT6HQ1YQOmT/YxezmuVMAPWloPpr/yD2R/1UqrlNHtf6RXRgt/Fvaotq2XEEDp7dlOtyO7R5mhWTSChratS8G37VxbQ==" />
-        </characteristic>
     </characteristic>
 </wap-provisioningdoc>

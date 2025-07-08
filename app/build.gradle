@@ -76,11 +76,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // EMDK Loader
-    implementation 'com.github.nilac8991:emdk-loader-lib:1.0.8'
+    implementation 'com.github.nilac8991:emdk-loader-lib:1.1.1'
 
     // EMDK
     implementation 'com.symbol:emdk:11.0.134'
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
