@@ -18,7 +18,7 @@
         android:theme="@style/Theme.IdentityGuardianPlayground">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IdentityGuardianPlayground"
@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".UserAuthenticationActivity"
+            android:name=".ui.auth.UserAuthenticationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />

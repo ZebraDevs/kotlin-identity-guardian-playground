@@ -1,10 +1,11 @@
-package com.zebra.nilac.igplayground
+package com.zebra.nilac.igplayground.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.zebra.nilac.igplayground.R
 
 class LoadingDialogFragment : DialogFragment() {
 

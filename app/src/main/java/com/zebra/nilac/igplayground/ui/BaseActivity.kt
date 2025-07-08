@@ -1,8 +1,9 @@
-package com.zebra.nilac.igplayground
+package com.zebra.nilac.igplayground.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.zebra.nilac.igplayground.R
 
 open class BaseActivity : AppCompatActivity() {
 

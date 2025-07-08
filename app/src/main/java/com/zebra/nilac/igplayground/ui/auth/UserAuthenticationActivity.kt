@@ -1,4 +1,4 @@
-package com.zebra.nilac.igplayground
+package com.zebra.nilac.igplayground.ui.auth
 
 import android.database.ContentObserver
 import android.net.Uri
@@ -9,15 +9,22 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.symbol.emdk.EMDKResults
 import com.zebra.nilac.emdkloader.EMDKLoader
 import com.zebra.nilac.emdkloader.ProfileLoader
 import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
+import com.zebra.nilac.igplayground.AppConstants
+import com.zebra.nilac.igplayground.R
 import com.zebra.nilac.igplayground.databinding.UserAuthenticationBinding
+import com.zebra.nilac.igplayground.ui.BaseActivity
+import com.zebra.nilac.igplayground.ui.main.MainViewModel
 
 class UserAuthenticationActivity : BaseActivity() {
 
     private lateinit var binding: UserAuthenticationBinding
+    private val userAuthenticationViewModel: UserAuthenticationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,30 +32,30 @@ class UserAuthenticationActivity : BaseActivity() {
         binding = UserAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTitle("Authenticate User")
-
         setSupportActionBar(binding.toolbar)
+
         fillUi()
+
+        userAuthenticationViewModel.userAuthenticationPermissions.observe(
+            this,
+            userAuthenticationPermissionsObserver
+        )
 
         binding.sendAuthRequestBtn.setOnClickListener {
             showLoadingScreen()
             sendAuthenticationRequest()
         }
 
-        fillUi()
         showLoadingScreen()
-
-        if (!EMDKLoader.getInstance().isManagerInit()) {
-            Toast.makeText(this, "EMDK Manager is not yet initialized!", Toast.LENGTH_LONG)
-                .show()
-            return
-        }
-        acquirePermissionForAuthRequest()
+        userAuthenticationViewModel.acquirePermissionsForUserAuthentication()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
+        userAuthenticationViewModel.userAuthenticationPermissions.removeObservers(this)
         contentResolver.unregisterContentObserver(authStatusContentObserver)
+
+        userAuthenticationViewModel.releaseEMDKManager()
     }
 
     private fun fillUi() {
@@ -96,9 +103,11 @@ class UserAuthenticationActivity : BaseActivity() {
         )
 
         if (response == null || !response.containsKey("RESULT") || response.getString("RESULT") == "Caller is unauthorized") {
-            Log.e(TAG, "App is not having permission for this API")
+            Log.e(
+                TAG,
+                "App is not having permission for this API or something else unknown has happened during the process"
+            )
             dismissLoadingScreen()
-            acquirePermissionForAuthRequest()
             return
         } else if (response.containsKey("RESULT") && response.getString("RESULT") == "SUCCESS") {
             dismissLoadingScreen()
@@ -133,11 +142,16 @@ class UserAuthenticationActivity : BaseActivity() {
                 return
             }
 
-            while (it.moveToNext()) {
-                for (i in 0 until it.columnCount) {
-                    response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
-                }
+            val bundle = it.extras;
+            if (bundle != null && bundle.containsKey("RESULT")) {
+                response = bundle.getString("RESULT")!!
             }
+
+//            while (it.moveToNext()) {
+//                for (i in 0 until it.columnCount) {
+//                    response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+//                }
+//            }
         }
         Log.i(TAG, response)
 
@@ -146,46 +160,18 @@ class UserAuthenticationActivity : BaseActivity() {
         binding.userSession.text = response
     }
 
-    private fun acquirePermissionForAuthRequest() {
-        Log.i(TAG, "Acquiring permission to allow authentication requests")
-        ProfileLoader().processProfile(
-            "IGStartAuth",
-            null,
-            object : ProfileLoaderResultCallback {
-                override fun onProfileLoadFailed(errorObject: EMDKResults) {
-                    //Nothing to see here..
-                }
-
-                override fun onProfileLoadFailed(message: String) {
-                    Log.e(TAG, "Failed to process profile")
-                    dismissLoadingScreen()
-                }
-
-                override fun onProfileLoaded() {
-                    acquirePermissionForAuthStatus()
-                }
-            })
-    }
-
-    private fun acquirePermissionForAuthStatus() {
-        Log.i(TAG, "Acquiring permission to listen for authentication request status")
-        ProfileLoader().processProfile(
-            "IGAuthStatus",
-            null,
-            object : ProfileLoaderResultCallback {
-                override fun onProfileLoadFailed(errorObject: EMDKResults) {
-                    //Nothing to see here..
-                }
-
-                override fun onProfileLoadFailed(message: String) {
-                    Log.e(TAG, "Failed to process profile")
-                    dismissLoadingScreen()
-                }
-
-                override fun onProfileLoaded() {
-                    dismissLoadingScreen()
-                }
-            })
+    private val userAuthenticationPermissionsObserver = Observer<Boolean> { status ->
+        runOnUiThread {
+            dismissLoadingScreen()
+            if (!status) {
+                Toast.makeText(
+                    this,
+                    "Unable to grant one or both of the required permissions to request an authentication request for a new user, check the logs",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@runOnUiThread
+            }
+        }
     }
 
     companion object {
