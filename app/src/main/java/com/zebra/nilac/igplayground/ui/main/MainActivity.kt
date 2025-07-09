@@ -1,22 +1,13 @@
 package com.zebra.nilac.igplayground.ui.main
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.symbol.emdk.EMDKResults
-import com.zebra.nilac.emdkloader.EMDKLoader
-import com.zebra.nilac.emdkloader.ProfileLoader
-import com.zebra.nilac.emdkloader.interfaces.EMDKManagerInitCallBack
-import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
-import com.zebra.nilac.igplayground.AppConstants
 import com.zebra.nilac.igplayground.R
-import com.zebra.nilac.igplayground.StatusService
 import com.zebra.nilac.igplayground.databinding.ActivityMainBinding
 import com.zebra.nilac.igplayground.ui.BaseActivity
 import com.zebra.nilac.igplayground.ui.auth.UserAuthenticationActivity
@@ -90,6 +81,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun getCurrentUserSession() {
+        //Legacy OLD API
+        //mainViewModel.getCurrentUserSessionLegacy()
+
         mainViewModel.getCurrentUserSession()
     }
 

@@ -5,6 +5,10 @@
     </characteristic>
 
     <characteristic type="Profile">
+        <parm name="ProfileName" value="IGCurrentSessionV2" />
+    </characteristic>
+
+    <characteristic type="Profile">
         <parm name="ProfileName" value="IGPreviousSession" />
     </characteristic>
 

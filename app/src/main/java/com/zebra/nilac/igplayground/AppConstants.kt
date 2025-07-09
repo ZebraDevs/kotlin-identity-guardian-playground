@@ -5,8 +5,12 @@ object AppConstants {
     const val BASE_URI =
         "content://com.zebra.mdna.els.provider/"
 
-    const val CURRENT_SESSION_URI =
+    const val CURRENT_SESSION_URI_LEGACY =
         "content://com.zebra.mdna.els.provider/currentsession"
+
+    const val CURRENT_SESSION_URI =
+        "content://com.zebra.mdna.els.provider/v2/currentsession"
+
     const val PREVIOUS_SESSION_URI =
         "content://com.zebra.mdna.els.provider/previoussession"
     const val STATUS_AUTHENTICATION_URI =

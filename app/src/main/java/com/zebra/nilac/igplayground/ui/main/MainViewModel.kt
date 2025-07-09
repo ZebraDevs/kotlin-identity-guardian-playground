@@ -12,10 +12,11 @@ import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.emdkloader.utils.SignatureUtils
 import com.zebra.nilac.igplayground.AppConstants
 import com.zebra.nilac.igplayground.StatusService
+import com.zebra.nilac.igplayground.models.session.UserSessionLoginResponse
 import com.zebra.nilac.igplayground.ui.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 class MainViewModel(private var application: Application) : BaseViewModel(application) {
 
@@ -33,6 +34,40 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
 
     val lockscreenStatusStatePermission: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
+    }
+
+    //NOTICE Legacy API - Only use it if you're running an older Identity Guardian version
+    fun getCurrentUserSessionLegacy(permissionGrantStatus: Boolean = true) {
+        var userSession = ""
+
+        if (!permissionGrantStatus) {
+            Log.e(TAG, "Failed to acquire permission")
+            userSessionData.postValue("")
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            application.contentResolver.query(
+                Uri.parse(AppConstants.CURRENT_SESSION_URI_LEGACY),
+                null,
+                null,
+                null
+            ).use {
+                if (it == null || it.columnCount == 0) {
+                    Log.e(TAG, "App is not having permission for this API")
+                    acquirePermissionForCurrentUserSessionLegacy()
+                    return@launch
+                }
+
+                Log.i(TAG, "Acquiring user session data")
+                while (it.moveToNext()) {
+                    for (i in 0 until it.columnCount) {
+                        userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
+                    }
+                }
+
+                userSessionData.postValue(userSession)
+            }
+        }
     }
 
     fun getCurrentUserSession(permissionGrantStatus: Boolean = true) {
@@ -56,14 +91,14 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
                     return@launch
                 }
 
-                Log.i(TAG, "Acquiring user session data")
-                while (it.moveToNext()) {
-                    for (i in 0 until it.columnCount) {
-                        userSession = "$userSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
-                    }
-                }
+                val bundle = it.extras
+                val resultStrJsonObject = bundle.getString("RESULT", "")
 
-                userSessionData.postValue(userSession)
+                if (resultStrJsonObject.isNotEmpty()) {
+                    val loginResponse =
+                        UserSessionLoginResponse.fromJson(JSONObject(resultStrJsonObject))
+                    userSessionData.postValue(loginResponse.toString())
+                }
             }
         }
     }
@@ -196,7 +231,8 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
         }
     }
 
-    private fun acquirePermissionForCurrentUserSession() {
+    //NOTICE Legacy API - Only use it if you're running an older Identity Guardian version
+    private fun acquirePermissionForCurrentUserSessionLegacy() {
         Log.i(TAG, "Acquiring permission to check the current user session")
         processIGAPIAuthorization {
             val profile = """
@@ -219,6 +255,47 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
 
             ProfileLoader().processProfile(
                 "IGCurrentSession",
+                profile,
+                object : ProfileLoaderResultCallback {
+                    override fun onProfileLoadFailed(errorObject: EMDKResults) {
+                        //Nothing to see here..
+                    }
+
+                    override fun onProfileLoadFailed(message: String) {
+                        Log.e(TAG, "Failed to process profile")
+                        getCurrentUserSessionLegacy(false)
+                    }
+
+                    override fun onProfileLoaded() {
+                        getCurrentUserSessionLegacy()
+                    }
+                })
+        }
+    }
+
+    private fun acquirePermissionForCurrentUserSession() {
+        Log.i(TAG, "Acquiring permission to check the current user session")
+        processIGAPIAuthorization {
+            val profile = """
+                <wap-provisioningdoc>
+                    <characteristic type="Profile">
+                        <parm name="ProfileName" value="IGCurrentSessionV2" />
+                        <parm name="ModifiedDate" value="2024-07-10 18:36:07" />
+                        <parm name="TargetSystemVersion" value="10.4" />
+                
+                        <characteristic type="AccessMgr" version="10.4">
+                            <parm name="emdk_name" value="" />
+                            <parm name="ServiceAccessAction" value="4" />
+                            <parm name="ServiceIdentifier" value="content://com.zebra.mdna.els.provider/v2/currentsession" />
+                            <parm name="CallerPackageName" value="${application.packageName}" />
+                            <parm name="CallerSignature"
+                                value="${SignatureUtils.getAppSigningCertificate(application)}" />
+                        </characteristic>
+                    </characteristic>
+                </wap-provisioningdoc>"""
+
+            ProfileLoader().processProfile(
+                "IGCurrentSessionV2",
                 profile,
                 object : ProfileLoaderResultCallback {
                     override fun onProfileLoadFailed(errorObject: EMDKResults) {
