@@ -1,9 +1,11 @@
-package com.zebra.nilac.igplayground.models.session
+package com.zebra.nilac.igplayground.models.session.current
 
+import com.zebra.nilac.igplayground.models.session.SessionAuthenticationFactors
+import com.zebra.nilac.igplayground.models.session.SessionFactor
 import org.json.JSONObject
 
 data class UserSessionLoginResponse(
-    val authenticationFactors: UserSessionAuthenticationFactors,
+    val authenticationFactors: SessionAuthenticationFactors,
     val enrollmentInformation: UserSessionEnrollmentInformation,
     val logOutInformation: UserSessionLogOutInformation,
     val loginInformation: UserSessionLoginInformation,
@@ -19,7 +21,7 @@ data class UserSessionLoginResponse(
 ) {
     companion object {
         fun fromJson(obj: JSONObject) = UserSessionLoginResponse(
-            authenticationFactors = UserSessionAuthenticationFactors.fromJson(
+            authenticationFactors = SessionAuthenticationFactors.fromJson(
                 obj.optJSONObject("authenticationFactors") ?: JSONObject()
             ),
             enrollmentInformation = UserSessionEnrollmentInformation.fromJson(
@@ -94,7 +96,7 @@ data class UserSessionLoginResponse(
             }
 
             // Authentication Factors
-            fun List<UserSessionFactor>.formatted(name: String) {
+            fun List<SessionFactor>.formatted(name: String) {
                 if (isNotEmpty()) {
                     appendLine("  $name:")
                     forEach { f ->

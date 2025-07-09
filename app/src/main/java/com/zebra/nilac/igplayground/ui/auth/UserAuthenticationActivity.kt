@@ -18,8 +18,10 @@ import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.igplayground.AppConstants
 import com.zebra.nilac.igplayground.R
 import com.zebra.nilac.igplayground.databinding.UserAuthenticationBinding
+import com.zebra.nilac.igplayground.models.session.legacy.UserLegacySessionLoginResponse
 import com.zebra.nilac.igplayground.ui.BaseActivity
 import com.zebra.nilac.igplayground.ui.main.MainViewModel
+import org.json.JSONObject
 
 class UserAuthenticationActivity : BaseActivity() {
 
@@ -142,21 +144,21 @@ class UserAuthenticationActivity : BaseActivity() {
                 return
             }
 
-            val bundle = it.extras;
-            if (bundle != null && bundle.containsKey("RESULT")) {
-                response = bundle.getString("RESULT")!!
+            val bundle = it.extras
+            val resultStrJsonObject = bundle.getString("RESULT", "")
+
+            if (resultStrJsonObject.isNotEmpty()) {
+                val authenticationResponse =
+                    UserLegacySessionLoginResponse.fromJson(JSONObject(resultStrJsonObject))
+                response = authenticationResponse.toString()
             }
-
-//            while (it.moveToNext()) {
-//                for (i in 0 until it.columnCount) {
-//                    response = "$response\n${it.getColumnName(i)}: ${it.getString(i)}\n"
-//                }
-//            }
         }
-        Log.i(TAG, response)
 
+        Log.i(TAG, response)
         dismissLoadingScreen()
+
         binding.authRequestContainer.visibility = View.GONE
+        binding.userSessionContainer.visibility = View.VISIBLE
         binding.userSession.text = response
     }
 

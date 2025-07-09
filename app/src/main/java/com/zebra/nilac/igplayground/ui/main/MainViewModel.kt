@@ -12,7 +12,8 @@ import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.emdkloader.utils.SignatureUtils
 import com.zebra.nilac.igplayground.AppConstants
 import com.zebra.nilac.igplayground.StatusService
-import com.zebra.nilac.igplayground.models.session.UserSessionLoginResponse
+import com.zebra.nilac.igplayground.models.session.current.UserSessionLoginResponse
+import com.zebra.nilac.igplayground.models.session.legacy.UserLegacySessionLoginResponse
 import com.zebra.nilac.igplayground.ui.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,8 +72,6 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
     }
 
     fun getCurrentUserSession(permissionGrantStatus: Boolean = true) {
-        var userSession = ""
-
         if (!permissionGrantStatus) {
             Log.e(TAG, "Failed to acquire permission")
             userSessionData.postValue("")
@@ -91,6 +90,8 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
                     return@launch
                 }
 
+                Log.i(TAG, "Acquiring current user session data")
+
                 val bundle = it.extras
                 val resultStrJsonObject = bundle.getString("RESULT", "")
 
@@ -104,8 +105,6 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
     }
 
     fun getPreviousUserSession(permissionGrantStatus: Boolean = true) {
-        var previousUserSession = ""
-
         if (!permissionGrantStatus) {
             Log.e(TAG, "Failed to acquire permission")
             previousUserSessionData.postValue("")
@@ -125,14 +124,15 @@ class MainViewModel(private var application: Application) : BaseViewModel(applic
                 }
 
                 Log.i(TAG, "Acquiring previous user session data")
-                while (it.moveToNext()) {
-                    for (i in 0 until it.columnCount) {
-                        previousUserSession =
-                            "$previousUserSession\n${it.getColumnName(i)}: ${it.getString(i)}\n"
-                    }
-                }
 
-                previousUserSessionData.postValue(previousUserSession)
+                val bundle = it.extras
+                val resultStrJsonObject = bundle.getString("RESULT", "")
+
+                if (resultStrJsonObject.isNotEmpty()) {
+                    val loginResponse =
+                        UserLegacySessionLoginResponse.fromJson(JSONObject(resultStrJsonObject))
+                    previousUserSessionData.postValue(loginResponse.toString())
+                }
             }
         }
     }

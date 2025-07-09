@@ -1,4 +1,4 @@
-package com.zebra.nilac.igplayground.models.session
+package com.zebra.nilac.igplayground.models.session.current
 
 import org.json.JSONObject
 

@@ -80,7 +80,9 @@
         <ScrollView
             android:id="@+id/user_session_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
