@@ -5,13 +5,15 @@ Demo Application demonstrating the integration of all the Identity Guardian's AP
 ## Features
 
 - All APIs are automatically pre-granted through the AccessMgr APIs via the EMDK library
-- Available APIs:
-    - `/previoussession`
-    - `/currentsession`
-    - `/lockscreenstatus/state`
-    - `/lockscreenaction/startauthentication`
-    - `/lockscreenaction/authenticationstatus`
-    - `/lockscreenaction/logout`
+- Featured APIs:
+  - `/v2/currentsession`
+  - `/previoussession`
+  - `/lockscreenstatus/state`
+  - `/lockscreenaction/startauthentication`
+  - `/lockscreenaction/authenticationstatus`
+  - `/lockscreenaction/logout`
+  - `/lockscreenaction/showmessage`
+  - `/currentsession` (Deprecated)
 
 ## Blog Post
 
