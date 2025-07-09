@@ -29,4 +29,6 @@ object AppConstants {
         "logout"
     const val LOCKSCREEN_STATUS_STATE_METHOD =
         "state"
+    const val LOCKSCREEN_SET_MESSAGE_METHOD =
+        "showmessage"
 }

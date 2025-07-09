@@ -11,6 +11,7 @@ import com.zebra.nilac.igplayground.R
 import com.zebra.nilac.igplayground.databinding.ActivityMainBinding
 import com.zebra.nilac.igplayground.ui.BaseActivity
 import com.zebra.nilac.igplayground.ui.auth.UserAuthenticationActivity
+import com.zebra.nilac.igplayground.ui.lockscreen.LockScreenMessageManagementActivity
 
 
 class MainActivity : BaseActivity() {
@@ -73,6 +74,11 @@ class MainActivity : BaseActivity() {
 
             R.id.action_start_service -> {
                 mainViewModel.acquirePermissionForLockscreenStatusState()
+                return true
+            }
+
+            R.id.action_set_lockscreen_message -> {
+                startActivity(Intent(this@MainActivity, LockScreenMessageManagementActivity::class.java))
                 return true
             }
 

@@ -27,4 +27,8 @@
     <characteristic type="Profile">
         <parm name="ProfileName" value="IGLockscreenStatus" />
     </characteristic>
+
+    <characteristic type="Profile">
+        <parm name="ProfileName" value="IGLockscreenMessage" />
+    </characteristic>
 </wap-provisioningdoc>
