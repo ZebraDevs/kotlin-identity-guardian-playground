@@ -3,6 +3,9 @@ package com.zebra.nilac.igplayground.models.session.current
 import com.zebra.nilac.igplayground.models.session.SessionAuthenticationFactors
 import com.zebra.nilac.igplayground.models.session.SessionFactor
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 data class UserSessionLoginResponse(
     val authenticationFactors: SessionAuthenticationFactors,
@@ -70,7 +73,7 @@ data class UserSessionLoginResponse(
             field("Role", userInformation.userRole.ifEmpty { "(not assigned)" })
 
             // Login Info
-            field("Login Time", loginInformation.userLoginTime)
+            field("Login Time", loginInformation.userLoginTime.epochMillisToDate())
 
             // Logout Info
             field("Logout Reason", logOutInformation.logoutReason.ifEmpty { "--" })
@@ -79,8 +82,8 @@ data class UserSessionLoginResponse(
             // Enrollment Info
             field("Enrollment ID", enrollmentInformation.enrollmentId)
             field("Enrollment Type", enrollmentInformation.enrollmentType)
-            field("Enrollment Created On", enrollmentInformation.enrollmentCreatedOn)
-            field("Enrollment Expiry", enrollmentInformation.enrollmentExpiryDate)
+            field("Enrollment Created On", enrollmentInformation.enrollmentCreatedOn.epochMillisToDate())
+            field("Enrollment Expiry", enrollmentInformation.enrollmentExpiryDate.epochMillisToDate())
             field("Enrollment Device Model", enrollmentInformation.enrollmentCreatedOnDeviceModel)
             field("Enrollment Device Serial No", enrollmentInformation.enrollmentCreatedOnDeviceSerialNo)
 
@@ -112,5 +115,15 @@ data class UserSessionLoginResponse(
             authenticationFactors.alternateFactors.formatted("Alternate Factors")
             authenticationFactors.adminByPassFactors.formatted("Admin Bypass Factors")
         }
+    }
+}
+
+fun String.epochMillisToDate(): String {
+    return try {
+        val date = Date(this.toLong())
+        val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+        formatter.format(date)
+    } catch (_: Exception) {
+        this
     }
 }
