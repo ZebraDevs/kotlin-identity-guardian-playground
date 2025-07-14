@@ -4,6 +4,12 @@
     tools:context=".ui.main.MainActivity">
 
     <item
+        android:id="@+id/action_ms_auth"
+        android:orderInCategory="100"
+        android:title="Check Microsoft Authentication"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_authenticate"
         android:orderInCategory="100"
         android:title="Authenticate New User"

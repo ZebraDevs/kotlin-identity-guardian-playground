@@ -21,6 +21,16 @@ android {
     def pKeyFilePassword = keysProps['KEY_FILE_PASSWORD']
     // -------------------------------------------------------------
 
+    // ---- Load MSAL params from properties file -----
+    def msalPropFile = file('msal.properties')
+    Properties msalProps = new Properties()
+
+    msalProps.load(new FileInputStream(msalPropFile))
+
+    def msAuthHost = msalProps['ENTRA_HOST']
+    def msRedirectPath = msalProps['ENTRA_REDIRECT_PATH']
+    // -------------------------------------------------------------
+
     signingConfigs {
         official {
             keyAlias pKeyAlias
@@ -38,6 +48,11 @@ android {
         versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+            msAuthHost: msAuthHost,
+            msAuthPath: msRedirectPath
+        ]
     }
 
     buildTypes {
@@ -80,6 +95,13 @@ dependencies {
 
     // EMDK
     implementation 'com.symbol:emdk:11.0.134'
+
+    //MSAL
+    implementation("com.microsoft.identity.client:msal:4.10.0") {
+        exclude(group: "io.opentelemetry")
+    }
+    implementation("io.opentelemetry:opentelemetry-api:1.18.0")
+    implementation("io.opentelemetry:opentelemetry-context:1.18.0")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

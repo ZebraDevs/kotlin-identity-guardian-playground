@@ -12,6 +12,7 @@ import com.zebra.nilac.igplayground.databinding.ActivityMainBinding
 import com.zebra.nilac.igplayground.ui.BaseActivity
 import com.zebra.nilac.igplayground.ui.auth.UserAuthenticationActivity
 import com.zebra.nilac.igplayground.ui.lockscreen.LockScreenMessageManagementActivity
+import com.zebra.nilac.igplayground.ui.ms.MSSignInActivity
 
 
 class MainActivity : BaseActivity() {
@@ -62,6 +63,11 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_ms_auth -> {
+                startActivity(Intent(this@MainActivity, MSSignInActivity::class.java))
+                return true
+            }
+
             R.id.action_authenticate -> {
                 startActivity(Intent(this@MainActivity, UserAuthenticationActivity::class.java))
                 return true

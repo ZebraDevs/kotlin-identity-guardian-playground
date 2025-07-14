@@ -16,4 +16,22 @@
         <item name="android:backgroundDimAmount">.70</item>
     </style>
 
+    <style name="Theme.Base.ButtonOutlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">
+            @style/Button.ShapeStyle
+        </item>
+        <item name="android:textColor">#0068E2</item>
+        <item name="strokeColor">#0068E2</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
+
+    <style name="Button.ShapeStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">9dp</item>
+        <item name="cornerSizeTopLeft">9dp</item>
+        <item name="cornerSizeBottomRight">9dp</item>
+        <item name="cornerSizeBottomLeft">9dp</item>
+    </style>
+
 </resources>

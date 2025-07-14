@@ -1,2 +1,4 @@
 /build
 /keys.properties
+/msal.properties
+/src/main/res/raw/msal_auth_config.json
