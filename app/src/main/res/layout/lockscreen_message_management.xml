@@ -9,12 +9,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
+        android:background="?colorPrimarySurface"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:titleTextColor="?colorSecondaryContainer"
             android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -92,7 +94,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/set_message_btn"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Theme.Base.ButtonGeneric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -9,12 +9,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
+        android:background="?colorPrimarySurface"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:titleTextColor="?colorSecondaryContainer"
             android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -84,7 +86,7 @@
             android:text="Sign in with Microsoft"
             app:icon="@drawable/ic_ms_icon"
             app:iconSize="24dp"
-            app:iconTint="#0068E2" />
+            app:iconTint="?colorPrimary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ms_logout_btn"

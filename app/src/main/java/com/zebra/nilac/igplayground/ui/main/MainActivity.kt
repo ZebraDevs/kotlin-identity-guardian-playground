@@ -6,7 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.google.android.material.color.MaterialColors
 import com.zebra.nilac.igplayground.R
 import com.zebra.nilac.igplayground.databinding.ActivityMainBinding
 import com.zebra.nilac.igplayground.ui.BaseActivity
@@ -26,6 +28,8 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        binding.toolbar.overflowIcon?.setTint(MaterialColors.getColor(binding.toolbar, com.google.android.material.R.attr.colorSecondaryContainer))
 
         mainViewModel.userSessionData.observe(this, userSessionObserver)
         mainViewModel.previousUserSessionData.observe(this, previousUserSessionObserver)

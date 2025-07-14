@@ -10,12 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?colorPrimarySurface"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="?colorSecondaryContainer" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -66,7 +68,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/send_auth_request_btn"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/Theme.Base.ButtonGeneric"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

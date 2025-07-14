@@ -10,12 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?colorPrimarySurface"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="?colorSecondaryContainer" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -49,21 +51,23 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Theme.Base.ButtonOutlined"
                 android:id="@+id/current_session_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="Retrieve Current Session"
+                android:text="Current Session"
                 app:cornerRadius="8dp" />
 
             <Button
+                style="@style/Theme.Base.ButtonOutlined"
                 android:id="@+id/previous_session_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Retrieve Previous Session"
+                android:text="Previous Session"
                 app:cornerRadius="8dp" />
 
         </LinearLayout>
